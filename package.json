@@ -27,9 +27,9 @@
     "@angular-devkit/build-angular": "~0.1102.18",
     "@angular/cli": "~11.2.18",
     "@angular/compiler-cli": "~11.2.14",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
@@ -41,6 +41,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.2"
+    "typescript": "^4.6.3"
   }
 }
