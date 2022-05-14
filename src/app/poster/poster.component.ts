@@ -11,7 +11,7 @@ export class PosterComponent implements OnInit {
   public pokemonSprites: IPokemonSprite[] = [];
   public displayPosterOptions: boolean = false;
 
-  public pokemonGameVersionHeaderImage: string = '../../assets/pokemon-logo.png';
+  public pokemonGameVersionHeaderImage: string = 'assets/pokemon-logo.png';
 
   public height: string = '112px';
   public width: string = '112px';
@@ -175,7 +175,7 @@ export class PosterComponent implements OnInit {
     // Get Icon Paths
     for (let i = 0; i < pokemonList.length; i++) {
       const sprite = pokemonList[i];
-      sprite.pokemonSprite = `../../assets/${folderName}/${filePrefix}${this.zeroPad(i+1, 3)}.${extension}`;
+      sprite.pokemonSprite = `assets/${folderName}/${filePrefix}${this.zeroPad(i+1, 3)}.${extension}`;
       this.pokemonSprites.push(sprite);
     }
 
