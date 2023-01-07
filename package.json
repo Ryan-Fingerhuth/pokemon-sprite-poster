@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-github-pages": "ng build --configuration production --output-path=docs --base-href https://ryan-fingerhuth.github.io/pokemon-sprite-poster/"
+    "build-github-pages": "ng build --configuration production --output-path=docs --base-href https://pokemon-poster.com/"
   },
   "private": true,
   "dependencies": {
