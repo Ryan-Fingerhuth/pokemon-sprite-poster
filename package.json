@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-github-pages": "ng build --configuration production --output-path=docs --base-href https://pokemon-poster.com/"
+    "cloudflare-build-preview": "ng build --configuration production --output-path=build --base-href https://develop.pokemon-sprite-poster.pages.dev/",
+    "cloudflare-build-prod": "ng build --configuration production --output-path=build --base-href https://pokemon-poster.com/"
   },
   "private": true,
   "dependencies": {
@@ -22,11 +23,13 @@
     "@angular/router": "~13.3.0",
     "@popperjs/core": "^2.11.4",
     "bootstrap": "^5.1.3",
+    "localforage": "^1.10.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "@angular-eslint/schematics": "^13.5.0",
     "@angular-devkit/build-angular": "~13.3.0",
     "@angular/cli": "~13.3.0",
     "@angular/compiler-cli": "~13.3.0",
