@@ -4,7 +4,8 @@ import {
   PokemonSpriteInfo,
   IPokemonSprite,
   IPokemonGenerationInfo,
-  IPokemonConfig
+  IPokemonConfig,
+  ISpriteConfig
 } from '../@models';
 import { LocalForageService } from '../localforage.service';
 
@@ -93,154 +94,47 @@ export class PosterComponent implements OnInit {
       return;
     }
 
-    let pokemonList: IPokemonSprite[] = [];
-    let folderName: string;
-    let filePrefix: string;
-    let extension: string;
+    let spriteConfig: ISpriteConfig = {
+      pokemonList: [],
+      folderName: '',
+      filePrefix: '',
+      extension: '',
+    };
 
     this.height = '112px';
     this.width = '112px';
     this.widthNumber = 112;
 
     if (this.selectedGeneration == 'Gen 1') {
-      this.setGeneration1(pokemonList, folderName, filePrefix, extension);
+      spriteConfig = this.setGeneration1(spriteConfig);
     }
 
     if (this.selectedGeneration == 'Gen 2') {
-      this.setGeneration2(pokemonList, folderName, filePrefix, extension);
+      spriteConfig = this.setGeneration2(spriteConfig);
     }
 
     if (this.selectedGeneration == 'Gen 3') {
-      this.setGeneration3(pokemonList, folderName, filePrefix, extension);
+      spriteConfig = this.setGeneration3(spriteConfig);
     }
 
     if (this.selectedGeneration == 'Gen 4') {
-      this.setGeneration4(pokemonList, folderName, filePrefix, extension);
+      spriteConfig = this.setGeneration4(spriteConfig);
     }
 
     if (this.selectedGeneration == 'Gen 5') {
-      this.setGeneration5(pokemonList, folderName, filePrefix, extension);
+      spriteConfig = this.setGeneration5(spriteConfig);
     }
 
-    // Get Icon Paths
-    this.setIconPaths(pokemonList, folderName, filePrefix, extension);
+    this.setIconPaths(spriteConfig);
 
     this.allPokemonSprites = this.pokemonSprites;
     this.sortByDex();
   }
 
-  private setGeneration1(pokemonList: IPokemonSprite[], folderName: string, filePrefix: string, extension: string): void {
-    pokemonList = this.pokemon.PokemonGen1;
-
-    if (!pokemonList) {
-      return;
-    }
-
-    if (this.selectedVersion === this.pokemonConstants.PokemonRedBlue.gameName) {
-      folderName = 'gen-1-red-blue';
-      filePrefix = 'Spr_1b_';
-      extension = 'png';
-    }
-    if (this.selectedVersion === this.pokemonConstants.PokemonRedGreen.gameName) {
-      folderName = 'gen-1-red-green';
-      filePrefix = 'Spr_1g_';
-      extension = 'png';
-    }
-    if (this.selectedVersion === this.pokemonConstants.PokemonYellow.gameName) {
-      folderName = 'gen-1-yellow';
-      filePrefix = 'Spr_1y_';
-      extension = 'png';
-    }
-    if (this.selectedVersion === this.pokemonConstants.PokemonLeafGreenFireRed.gameName) {
-      folderName = 'gen-1-leafgreen-firered';
-      filePrefix = '';
-      extension = 'png';
-    }
-  }
-
-  private setGeneration2(pokemonList: IPokemonSprite[], folderName: string, filePrefix: string, extension: string): void {
-    pokemonList = this.pokemon.PokemonGen2;
-
-    if (!pokemonList) {
-      return;
-    }
-    
-    if (this.selectedVersion === this.pokemonConstants.PokemonSilver.gameName) {
-      folderName = 'gen-2-silver';
-      filePrefix = 'Spr_2s_';
-      extension = 'png';
-    }
-    if (this.selectedVersion === this.pokemonConstants.PokemonGold.gameName) {
-      folderName = 'gen-2-gold';
-      filePrefix = 'Spr_2g_';
-      extension = 'png';
-    }
-    if (this.selectedVersion === this.pokemonConstants.PokemonCrystal.gameName) {
-      folderName = 'gen-2-crystal';
-      filePrefix = 'Spr_2c_';
-      extension = 'png';
-    }
-  }
-
-  private setGeneration3(pokemonList: IPokemonSprite[], folderName: string, filePrefix: string, extension: string): void {
-    pokemonList = this.pokemon.PokemonGen3;
-
-    if (!pokemonList) {
-      return;
-    }
-    
-    if (this.selectedVersion === this.pokemonConstants.PokemonRubySapphire.gameName) {
-      folderName = 'gen-3-ruby-sapphire';
-      filePrefix = '';
-      extension = 'png';
-    }
-    if (this.selectedVersion === this.pokemonConstants.PokemonEmerald.gameName) {
-      folderName = 'gen-3-emerald';
-      filePrefix = 'Spr_3e_';
-      extension = 'png';
-    }
-  }
-
-  private setGeneration4(pokemonList: IPokemonSprite[], folderName: string, filePrefix: string, extension: string): void {
-    pokemonList = this.pokemon.PokemonGen4;
-
-    if (!pokemonList) {
-      return;
-    }
-
-    this.height = '160px';
-    this.width = '160px';
-    this.widthNumber = 160;
-    
-    if (this.selectedVersion === this.pokemonConstants.PokemonDiamondPearlPlatinum.gameName) {
-      folderName = 'gen-4-diamond-pearl-platinum';
-      filePrefix = 'Spr_4d_';
-      extension = 'png';
-    }
-  }
-
-  private setGeneration5(pokemonList: IPokemonSprite[], folderName: string, filePrefix: string, extension: string): void {
-    pokemonList = this.pokemon.PokemonGen5;
-
-    if (!pokemonList) {
-      return;
-    }
-
-    this.height = '168px';
-    this.width = '168px';
-    this.widthNumber = 168;
-    
-    if (this.selectedVersion === this.pokemonConstants.PokemonBlackWhite.gameName) {
-      folderName = 'gen-5-black-white';
-      filePrefix = 'Spr_5b_';
-      extension = 'png';
-    }
-  }
-
-  private setIconPaths(pokemonList: IPokemonSprite[], folderName: string, filePrefix: string, extension: string): void {
-    for (let i = 0; i < pokemonList.length; i++) {
-      const sprite = pokemonList[i];
-      sprite.pokemonSprite = `assets/${folderName}/${filePrefix}${this.zeroPad(i+1, 3)}.${extension}`;
+  private setIconPaths(spriteConfig: ISpriteConfig): void {
+    for (let i = 0; i < spriteConfig.pokemonList.length; i++) {
+      const sprite = spriteConfig.pokemonList[i];
+      sprite.pokemonSprite = `assets/${spriteConfig.folderName}/${spriteConfig.filePrefix}${this.zeroPad(i+1, 3)}.${spriteConfig.extension}`;
       this.pokemonSprites.push(sprite);
     }
   }
@@ -312,4 +206,123 @@ export class PosterComponent implements OnInit {
   }
 
   private zeroPad = (num, places) => String(num).padStart(places, '0');
+
+  // Set Generations
+  private setGeneration1(spriteConfig: ISpriteConfig): ISpriteConfig {
+    spriteConfig.pokemonList = this.pokemon.PokemonGen1;
+
+    if (!spriteConfig.pokemonList) {
+      return;
+    }
+
+    if (this.selectedVersion === this.pokemonConstants.PokemonRedBlue.gameName) {
+      spriteConfig.folderName = 'gen-1-red-blue';
+      spriteConfig.filePrefix = 'Spr_1b_';
+      spriteConfig.extension = 'png';
+    }
+    if (this.selectedVersion === this.pokemonConstants.PokemonRedGreen.gameName) {
+      spriteConfig.folderName = 'gen-1-red-green';
+      spriteConfig.filePrefix = 'Spr_1g_';
+      spriteConfig.extension = 'png';
+    }
+    if (this.selectedVersion === this.pokemonConstants.PokemonYellow.gameName) {
+      spriteConfig.folderName = 'gen-1-yellow';
+      spriteConfig.filePrefix = 'Spr_1y_';
+      spriteConfig.extension = 'png';
+    }
+    if (this.selectedVersion === this.pokemonConstants.PokemonLeafGreenFireRed.gameName) {
+      spriteConfig.folderName = 'gen-1-leafgreen-firered';
+      spriteConfig.filePrefix = '';
+      spriteConfig.extension = 'png';
+    }
+
+    return spriteConfig;
+  }
+
+  private setGeneration2(spriteConfig: ISpriteConfig): ISpriteConfig {
+    spriteConfig.pokemonList = this.pokemon.PokemonGen2;
+
+    if (!spriteConfig.pokemonList) {
+      return;
+    }
+    
+    if (this.selectedVersion === this.pokemonConstants.PokemonSilver.gameName) {
+      spriteConfig.folderName = 'gen-2-silver';
+      spriteConfig.filePrefix = 'Spr_2s_';
+      spriteConfig.extension = 'png';
+    }
+    if (this.selectedVersion === this.pokemonConstants.PokemonGold.gameName) {
+      spriteConfig.folderName = 'gen-2-gold';
+      spriteConfig.filePrefix = 'Spr_2g_';
+      spriteConfig.extension = 'png';
+    }
+    if (this.selectedVersion === this.pokemonConstants.PokemonCrystal.gameName) {
+      spriteConfig.folderName = 'gen-2-crystal';
+      spriteConfig.filePrefix = 'Spr_2c_';
+      spriteConfig.extension = 'png';
+    }
+
+    return spriteConfig;
+  }
+
+  private setGeneration3(spriteConfig: ISpriteConfig): ISpriteConfig {
+    spriteConfig.pokemonList = this.pokemon.PokemonGen3;
+
+    if (!spriteConfig.pokemonList) {
+      return;
+    }
+    
+    if (this.selectedVersion === this.pokemonConstants.PokemonRubySapphire.gameName) {
+      spriteConfig.folderName = 'gen-3-ruby-sapphire';
+      spriteConfig.filePrefix = '';
+      spriteConfig.extension = 'png';
+    }
+    if (this.selectedVersion === this.pokemonConstants.PokemonEmerald.gameName) {
+      spriteConfig.folderName = 'gen-3-emerald';
+      spriteConfig.filePrefix = 'Spr_3e_';
+      spriteConfig.extension = 'png';
+    }
+
+    return spriteConfig;
+  }
+
+  private setGeneration4(spriteConfig: ISpriteConfig): ISpriteConfig {
+    spriteConfig.pokemonList = this.pokemon.PokemonGen4;
+
+    if (!spriteConfig.pokemonList) {
+      return;
+    }
+
+    this.height = '160px';
+    this.width = '160px';
+    this.widthNumber = 160;
+    
+    if (this.selectedVersion === this.pokemonConstants.PokemonDiamondPearlPlatinum.gameName) {
+      spriteConfig.folderName = 'gen-4-diamond-pearl-platinum';
+      spriteConfig.filePrefix = 'Spr_4d_';
+      spriteConfig.extension = 'png';
+    }
+
+    return spriteConfig;
+  }
+
+  private setGeneration5(spriteConfig: ISpriteConfig): ISpriteConfig {
+    spriteConfig.pokemonList = this.pokemon.PokemonGen5;
+
+    if (!spriteConfig.pokemonList) {
+      return;
+    }
+
+    this.height = '168px';
+    this.width = '168px';
+    this.widthNumber = 168;
+    
+    if (this.selectedVersion === this.pokemonConstants.PokemonBlackWhite.gameName) {
+      spriteConfig.folderName = 'gen-5-black-white';
+      spriteConfig.filePrefix = 'Spr_5b_';
+      spriteConfig.extension = 'png';
+    }
+
+    return spriteConfig;
+  }
 }

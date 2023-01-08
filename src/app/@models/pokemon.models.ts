@@ -19,6 +19,13 @@ export interface IPokemonGameInfo {
   numberOfPokemon: number; 
 }
 
+export interface ISpriteConfig {
+  pokemonList: IPokemonSprite[];
+  folderName: string;
+  filePrefix: string;
+  extension: string;
+}
+
 export interface IPokemonConfig {
   currentGeneration: IPokemonGenerationInfo;
   selectedGeneration: string;
