@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod": "ng build --configuration production --output-path=docs --base-href https://pokemon-poster.com/"
+    "cloudflare-build-preview": "ng build --configuration production --output-path=build --base-href https://develop.pokemon-sprite-poster.pages.dev/",
+    "cloudflare-build-prod": "ng build --configuration production --output-path=build --base-href https://pokemon-poster.com/"
   },
   "private": true,
   "dependencies": {
