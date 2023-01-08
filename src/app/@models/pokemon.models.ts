@@ -18,3 +18,11 @@ export interface IPokemonGameInfo {
   gameName: string;
   numberOfPokemon: number; 
 }
+
+export interface IPokemonConfig {
+  currentGeneration: IPokemonGenerationInfo;
+  selectedGeneration: string;
+  selectedVersion: string;
+  selectedDex: string;
+  displayPosterOptions: boolean;
+}

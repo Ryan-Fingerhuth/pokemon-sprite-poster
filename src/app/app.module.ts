@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PosterComponent } from './poster/poster.component';
 import { PokemonConstants, PokemonSpriteInfo } from './@models/pokemon.constants';
 import { CommonModule } from '@angular/common';
+import { LocalForageService } from './localforage.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
   ],
-  providers: [PokemonConstants, PokemonSpriteInfo],
+  providers: [PokemonConstants, PokemonSpriteInfo, LocalForageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
