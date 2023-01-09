@@ -1,4 +1,8 @@
 .sprite-grid-side-margins {
-  margin-left: 10vw;
-  margin-right: 10vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+.header-image {
+  max-height: 250px;
 }

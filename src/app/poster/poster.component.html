@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-auto mt-3" (click)="showHidePosterOptions()">
-      <img [src]="pokemonGameVersionHeaderImage" height="250px">
+      <img class="img-fluid header-image" [src]="pokemonGameVersionHeaderImage">
     </div>
   </div>
   <div *ngIf="displayPosterOptions" class="row mt-2 justify-content-center">
@@ -29,15 +29,11 @@
       </select>
     </div>
   </div>
-  <div class="row mt-3">
-    <div class="col">
-      <div class="row justify-content-md-center sprite-grid-side-margins">
-        <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-4" *ngFor="let sprite of pokemonSprites">
-          <div class="vstack gap-0 m-2">
-            <img [src]="sprite.pokemonSprite" [alt]="sprite.pokemonName" [attr.height]="height" [attr.width]="width" >
-            <label [style.width.px]="widthNumber" class="text-center">{{ sprite.pokemonName }}</label>
-          </div>
-        </div>
+  <div class="row mt-3 justify-content-md-center sprite-grid-side-margins">
+    <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4" *ngFor="let sprite of pokemonSprites">
+      <div class="vstack gap-0 m-2">
+        <img class="img-fluid" [src]="sprite.pokemonSprite" [alt]="sprite.pokemonName">
+        <label class="img-fluid" class="text-center">{{ sprite.pokemonName }}</label>
       </div>
     </div>
   </div>
