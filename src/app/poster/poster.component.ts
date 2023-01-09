@@ -21,10 +21,6 @@ export class PosterComponent implements OnInit {
 
   public pokemonGameVersionHeaderImage: string = 'assets/pokemon-logo.png';
 
-  public height: string = '112px';
-  public width: string = '112px';
-  public widthNumber: number = 112;
-
   public currentGeneration: IPokemonGenerationInfo;
 
   public selectedGeneration: string;
@@ -100,10 +96,6 @@ export class PosterComponent implements OnInit {
       filePrefix: '',
       extension: '',
     };
-
-    this.height = '112px';
-    this.width = '112px';
-    this.widthNumber = 112;
 
     if (this.selectedGeneration == 'Gen 1') {
       spriteConfig = this.setGeneration1(spriteConfig);
@@ -292,10 +284,6 @@ export class PosterComponent implements OnInit {
     if (!spriteConfig.pokemonList) {
       return;
     }
-
-    this.height = '160px';
-    this.width = '160px';
-    this.widthNumber = 160;
     
     if (this.selectedVersion === this.pokemonConstants.PokemonDiamondPearlPlatinum.gameName) {
       spriteConfig.folderName = 'gen-4-diamond-pearl-platinum';
@@ -312,10 +300,6 @@ export class PosterComponent implements OnInit {
     if (!spriteConfig.pokemonList) {
       return;
     }
-
-    this.height = '168px';
-    this.width = '168px';
-    this.widthNumber = 168;
     
     if (this.selectedVersion === this.pokemonConstants.PokemonBlackWhite.gameName) {
       spriteConfig.folderName = 'gen-5-black-white';
