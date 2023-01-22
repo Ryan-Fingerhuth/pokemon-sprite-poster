@@ -1,11 +1,11 @@
-import * as localForage from "localforage";
+import * as localForage from 'localforage';
 
 export class LocalForageService {
   constructor() {
     localForage.config({
       name: 'pokemon-sprite-poster',
-      version: 1.0
-    })
+      version: 1.0,
+    });
   }
 
   public get<T>(key: string): Promise<T> {

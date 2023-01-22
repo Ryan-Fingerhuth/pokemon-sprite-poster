@@ -1,27 +1,94 @@
-# PokemonSpritePoster
+<a name="readme-top"></a>
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster">
+    <img src="src/assets/pokemon-logo.png" alt="Logo" width="300">
+  </a>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.1.
+  <h3 align="center">Pokemon Sprite Poster</h3>
 
-## Development server
+  <p align="center">
+    Pokemon Sprites from Generation 1 through 5!
+    <br />
+    <a href="https://pokemon-poster.com/">Live Demo</a>
+    ·
+    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues">Request Feature</a>
+  </p>
+</div>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-## Code scaffolding
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Growing up I loved looking at pokemon posters such as the one above.
+Wanted to re-create a poster style layout site that showcases all the awesome pokemon sprites from Gen 1 through 5.
 
-## Build
+<p align="center"><b>Inspiration:</b></p>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+<p align="center">
+  <img src="src/assets/poster-inspo.jpg" width="300">
+</p>
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Built With
 
-## Running end-to-end tests
+[![Angular][Angular.io]][Angular-url]
+[![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+<!-- LICENSE -->
+## License
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[![LICENSE][license-shield]][license-url]
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+
+<!-- CONTACT -->
+## Contact
+
+Ryan Fingerhuth - rfingerhuth@gmail.com
+
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+Project Link: [https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster](https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster)
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+
+* [Pokemon Sprite provided by Bulbagarden.net](https://archives.bulbagarden.net/)
+* [Choose an Open Source License](https://choosealicense.com)
+* [Img Shields](https://shields.io)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/ryan-fingerhuth/
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com

@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { 
+import {
+  IPokemonConfig,
+  IPokemonGenerationInfo,
+  IPokemonSprite,
+  ISpriteConfig,
   PokemonConstants,
   PokemonSpriteInfo,
-  IPokemonSprite,
-  IPokemonGenerationInfo,
-  IPokemonConfig,
-  ISpriteConfig
 } from '../@models';
 import { LocalForageService } from '../localforage.service';
 
 @Component({
   selector: 'app-poster',
   templateUrl: './poster.component.html',
-  styleUrls: ['./poster.component.css']
+  styleUrls: ['./poster.component.css'],
 })
 export class PosterComponent implements OnInit {
   private allPokemonSprites: IPokemonSprite[] = [];
   public pokemonSprites: IPokemonSprite[] = [];
-  public displayPosterOptions: boolean = false;
+  public displayPosterOptions = false;
 
-  public pokemonGameVersionHeaderImage: string = 'assets/pokemon-logo.png';
+  public pokemonGameVersionHeaderImage = 'assets/pokemon-logo.png';
 
   public currentGeneration: IPokemonGenerationInfo;
 
@@ -30,37 +30,39 @@ export class PosterComponent implements OnInit {
   public generationOptions: string[];
   public versionOptions: string[];
   public dexOptions: string[];
+  public isOpen = false;
 
   constructor(
     public pokemonConstants: PokemonConstants,
     private pokemon: PokemonSpriteInfo,
-    private localForageService: LocalForageService
-  ) { }
+    private localForageService: LocalForageService,
+  ) {}
 
-  ngOnInit(): void {
-    this.localForageService.get<IPokemonConfig>('config').then(config => {
-      if (config) {
-        this.currentGeneration = config.currentGeneration;
+  private stupidMethod(): string {
+    return 'yo';
+  }
 
-        this.selectedGeneration = config.selectedGeneration;
-        this.selectedVersion = config.selectedVersion;
-        this.selectedDex = config.selectedDex;
-        this.displayPosterOptions = config.displayPosterOptions;
-      } else {
-        this.displayPosterOptions = true;
-        this.currentGeneration = this.pokemonConstants.generations[1];
+  async ngOnInit() {
+    let config = await this.localForageService.get<IPokemonConfig>('config');
+    if (config) {
+      this.currentGeneration = config.currentGeneration;
 
-        this.selectedGeneration = this.currentGeneration.generation;
-        this.selectedVersion = this.currentGeneration.versions[2];
-        this.selectedDex = this.currentGeneration.dexOptions[0];
-    
-        this.setConfigValues();
-      }
+      this.selectedGeneration = config.selectedGeneration;
+      this.selectedVersion = config.selectedVersion;
+      this.selectedDex = config.selectedDex;
+      this.displayPosterOptions = config.displayPosterOptions;
+    } else {
+      this.displayPosterOptions = true;
+      this.currentGeneration = this.pokemonConstants.generations[1];
 
-      this.setDropdownOptions();
-    }).catch(err => {
-      console.log(err);
-    });
+      this.selectedGeneration = this.currentGeneration.generation;
+      this.selectedVersion = this.currentGeneration.versions[2];
+      this.selectedDex = this.currentGeneration.dexOptions[0];
+
+      this.setConfigValues();
+    }
+
+    this.setDropdownOptions();
   }
 
   private setDropdownOptions(): void {
@@ -77,7 +79,7 @@ export class PosterComponent implements OnInit {
       selectedGeneration: this.selectedGeneration,
       selectedVersion: this.selectedVersion,
       selectedDex: this.selectedDex,
-      displayPosterOptions: this.displayPosterOptions
+      displayPosterOptions: this.displayPosterOptions,
     };
 
     this.localForageService.set('config', config);
@@ -86,7 +88,7 @@ export class PosterComponent implements OnInit {
   private getSprites(): void {
     this.pokemonSprites = [];
 
-    if(!this.selectedGeneration) {
+    if (!this.selectedGeneration) {
       return;
     }
 
@@ -126,7 +128,9 @@ export class PosterComponent implements OnInit {
   private setIconPaths(spriteConfig: ISpriteConfig): void {
     for (let i = 0; i < spriteConfig.pokemonList.length; i++) {
       const sprite = spriteConfig.pokemonList[i];
-      sprite.pokemonSprite = `assets/${spriteConfig.folderName}/${spriteConfig.filePrefix}${this.zeroPad(i+1, 3)}.${spriteConfig.extension}`;
+      sprite.pokemonSprite = `assets/${spriteConfig.folderName}/${
+        spriteConfig.filePrefix
+      }${this.zeroPad(i + 1, 3)}.${spriteConfig.extension}`;
       this.pokemonSprites.push(sprite);
     }
   }
@@ -141,7 +145,9 @@ export class PosterComponent implements OnInit {
       return;
     }
 
-    const genIndex = this.pokemonConstants.generations.findIndex(x => x.generation == this.selectedGeneration);
+    const genIndex = this.pokemonConstants.generations.findIndex(
+      (x) => x.generation == this.selectedGeneration,
+    );
 
     if (genIndex < 0) {
       return;
@@ -173,26 +179,20 @@ export class PosterComponent implements OnInit {
 
     if (this.selectedDex === 'Kanto') {
       this.pokemonSprites.sort((a, b) => a.natDex - b.natDex);
-    }
-    else if (this.selectedDex === 'National') {
+    } else if (this.selectedDex === 'National') {
       this.pokemonSprites.sort((a, b) => a.natDex - b.natDex);
-    }
-    else if (this.selectedDex === 'Johto') {
+    } else if (this.selectedDex === 'Johto') {
       this.pokemonSprites.sort((a, b) => a.gen2Dex - b.gen2Dex);
-    }
-    else if (this.selectedDex === 'Hoenn') {
-      this.pokemonSprites = this.pokemonSprites.filter(x => x.gen3Dex != null);
+    } else if (this.selectedDex === 'Hoenn') {
+      this.pokemonSprites = this.pokemonSprites.filter((x) => x.gen3Dex != null);
       this.pokemonSprites.sort((a, b) => a.gen3Dex - b.gen3Dex);
-    }
-    else if (this.selectedDex === 'Sinnoh') {
-      this.pokemonSprites = this.pokemonSprites.filter(x => x.gen4Dex != null);
+    } else if (this.selectedDex === 'Sinnoh') {
+      this.pokemonSprites = this.pokemonSprites.filter((x) => x.gen4Dex != null);
       this.pokemonSprites.sort((a, b) => a.gen4Dex - b.gen4Dex);
-    }
-    else if (this.selectedDex === 'Unova') {
-      this.pokemonSprites = this.pokemonSprites.filter(x => x.gen5Dex != null);
+    } else if (this.selectedDex === 'Unova') {
+      this.pokemonSprites = this.pokemonSprites.filter((x) => x.gen5Dex != null);
       this.pokemonSprites.sort((a, b) => a.gen5Dex - b.gen5Dex);
-    }
-    else {
+    } else {
       this.pokemonSprites.sort((a, b) => a.natDex - b.natDex);
     }
   }
@@ -222,7 +222,9 @@ export class PosterComponent implements OnInit {
       spriteConfig.filePrefix = 'Spr_1y_';
       spriteConfig.extension = 'png';
     }
-    if (this.selectedVersion === this.pokemonConstants.PokemonLeafGreenFireRed.gameName) {
+    if (
+      this.selectedVersion === this.pokemonConstants.PokemonLeafGreenFireRed.gameName
+    ) {
       spriteConfig.folderName = 'gen-1-leafgreen-firered';
       spriteConfig.filePrefix = '';
       spriteConfig.extension = 'png';
@@ -237,7 +239,7 @@ export class PosterComponent implements OnInit {
     if (!spriteConfig.pokemonList) {
       return;
     }
-    
+
     if (this.selectedVersion === this.pokemonConstants.PokemonSilver.gameName) {
       spriteConfig.folderName = 'gen-2-silver';
       spriteConfig.filePrefix = 'Spr_2s_';
@@ -263,8 +265,10 @@ export class PosterComponent implements OnInit {
     if (!spriteConfig.pokemonList) {
       return;
     }
-    
-    if (this.selectedVersion === this.pokemonConstants.PokemonRubySapphire.gameName) {
+
+    if (
+      this.selectedVersion === this.pokemonConstants.PokemonRubySapphire.gameName
+    ) {
       spriteConfig.folderName = 'gen-3-ruby-sapphire';
       spriteConfig.filePrefix = '';
       spriteConfig.extension = 'png';
@@ -284,8 +288,11 @@ export class PosterComponent implements OnInit {
     if (!spriteConfig.pokemonList) {
       return;
     }
-    
-    if (this.selectedVersion === this.pokemonConstants.PokemonDiamondPearlPlatinum.gameName) {
+
+    if (
+      this.selectedVersion ===
+      this.pokemonConstants.PokemonDiamondPearlPlatinum.gameName
+    ) {
       spriteConfig.folderName = 'gen-4-diamond-pearl-platinum';
       spriteConfig.filePrefix = 'Spr_4d_';
       spriteConfig.extension = 'png';
@@ -300,7 +307,7 @@ export class PosterComponent implements OnInit {
     if (!spriteConfig.pokemonList) {
       return;
     }
-    
+
     if (this.selectedVersion === this.pokemonConstants.PokemonBlackWhite.gameName) {
       spriteConfig.folderName = 'gen-5-black-white';
       spriteConfig.filePrefix = 'Spr_5b_';

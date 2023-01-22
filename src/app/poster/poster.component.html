@@ -1,9 +1,10 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-auto mt-3" (click)="showHidePosterOptions()">
-      <img class="img-fluid header-image" [src]="pokemonGameVersionHeaderImage">
+      <img class="img-fluid header-image" [src]="pokemonGameVersionHeaderImage" />
     </div>
   </div>
+
   <div *ngIf="displayPosterOptions" class="row mt-2 justify-content-center">
     <div class="row justify-content-center">
       <div class="col-auto">
@@ -12,28 +13,57 @@
     </div>
     <div class="col-auto">
       <label for="genSelector">Select Generation</label>
-      <select id="genSelector" class="form-control" width="100px" [(ngModel)]="selectedGeneration" (change)="onGenerationChange()">
-        <option *ngFor="let gen of generationOptions" [value]="gen"> {{ gen }}</option>
+      <select
+        id="genSelector"
+        class="form-control"
+        width="100px"
+        [(ngModel)]="selectedGeneration"
+        (change)="onGenerationChange()">
+        <option *ngFor="let gen of generationOptions" [value]="gen">
+          {{ gen }}
+        </option>
       </select>
     </div>
     <div class="col-auto">
       <label for="versionSelector">Select Version</label>
-      <select id="versionSelector" class="form-control" [style.width.px]="200" width="200px" [(ngModel)]="selectedVersion" (change)="onVersionChange()">
-        <option *ngFor="let version of versionOptions" [value]="version"> {{ version }}</option>
+      <select
+        id="versionSelector"
+        class="form-control"
+        [style.width.px]="200"
+        width="200px"
+        [(ngModel)]="selectedVersion"
+        (change)="onVersionChange()">
+        <option *ngFor="let version of versionOptions" [value]="version">
+          {{ version }}
+        </option>
       </select>
     </div>
     <div class="col-auto">
       <label for="dexSelector">Select Dex Order</label>
-      <select id="dexSelector" class="form-control" width="100px" [(ngModel)]="selectedDex" (change)="onDexChange()">
-        <option *ngFor="let dex of dexOptions" [value]="dex"> {{ dex }}</option>
+      <select
+        id="dexSelector"
+        class="form-control"
+        width="100px"
+        [(ngModel)]="selectedDex"
+        (change)="onDexChange()">
+        <option *ngFor="let dex of dexOptions" [value]="dex">
+          {{ dex }}
+        </option>
       </select>
     </div>
   </div>
   <div class="row mt-3 justify-content-md-center sprite-grid-side-margins">
-    <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4" *ngFor="let sprite of pokemonSprites">
+    <div
+      class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4"
+      *ngFor="let sprite of pokemonSprites">
       <div class="vstack gap-0 m-2">
-        <img class="img-fluid" [src]="sprite.pokemonSprite" [alt]="sprite.pokemonName">
-        <label class="img-fluid" class="text-center">{{ sprite.pokemonName }}</label>
+        <img
+          class="img-fluid"
+          [src]="sprite.pokemonSprite"
+          [alt]="sprite.pokemonName" />
+        <label class="img-fluid" class="text-center">
+          {{ sprite.pokemonName }}
+        </label>
       </div>
     </div>
   </div>
