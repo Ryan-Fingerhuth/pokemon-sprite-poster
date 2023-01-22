@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster">
-    <img src="src/assets/pokemon-logo.png" alt="Logo" width="250" height="120">
+    <img src="src/assets/pokemon-logo.png" alt="Logo" width="300">
   </a>
 
   <h3 align="center">Pokemon Sprite Poster</h3>
@@ -11,11 +11,11 @@
   <p align="center">
     Pokemon Sprites from Generation 1 through 5!
     <br />
-    <a href="https://pokemon-poster.com/" target="_blank">Live Demo</a>
+    <a href="https://pokemon-poster.com/">Live Demo</a>
     ·
-    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues" target="_blank">Report Bug</a>
+    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues" target="_blank">Request Feature</a>
+    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues">Request Feature</a>
   </p>
 </div>
 
@@ -41,8 +41,12 @@
 Growing up I loved looking at pokemon posters such as the one above.
 Wanted to re-create a poster style layout site that showcases all the awesome pokemon sprites from Gen 1 through 5.
 
-Inspiration:
-<img src="src/assets/poster-inspo.jpg" width="250" height="120">
+<p align="center">Inspiration:</p>
+
+<p align="center">
+  <img src="src/assets/poster-inspo.jpg" width="300">
+</p>
+
 
 ## Built With
 
@@ -59,7 +63,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Ryan Fingerhuth - rfingerhuth@gmail.com - [linkedin-shield]<a href="https://www.linkedin.com/in/ryan-fingerhuth/ target="_blank"">LinkedIn</a>
+Ryan Fingerhuth - rfingerhuth@gmail.com - [![LinkedIn][linkedin-shield]][linkedin-url]
 
 Project Link: [https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster](https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster)
 
@@ -88,7 +92,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-
+[linkedin-url]: https://www.linkedin.com/in/ryan-fingerhuth/
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
