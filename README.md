@@ -2,19 +2,19 @@
 <br />
 <div align="center">
   <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster">
-    <img src="assets/pokemon-logo.png" alt="Logo" width="80" height="80">
+    <img src="src/assets/pokemon-logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Pokemon Sprite Poster</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    Pokemon Sprites from Generation 1 through 5!
     <br />
-    <a href="https://pokemon-poster.com/">Live Demo</a>
+    <a href="https://pokemon-poster.com/" target="_blank">Live Demo</a>
     ·
-    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues">Report Bug</a>
+    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues" target="_blank">Report Bug</a>
     ·
-    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues">Request Feature</a>
+    <a href="https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster/issues" target="_blank">Request Feature</a>
   </p>
 </div>
 
@@ -45,10 +45,10 @@ Wanted to re-create a poster style layout site that showcases all the awesome po
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-### Built With
+## Built With
 
-* [![Angular][Angular.io]][Angular-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+[![Angular][Angular.io]][Angular-url]
+[![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -60,9 +60,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
-### Contact
+## Contact
 
-Ryan Fingerhuth - rfingerhuth@gmail.com
+Ryan Fingerhuth - rfingerhuth@gmail.com - [linkedin-url]
 
 Project Link: [https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster](https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster)
 
@@ -93,7 +93,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/ryan-fingerhuth/
-[product-screenshot]: assets/poster-inspo.jpg
+[product-screenshot]: src/assets/poster-inspo.jpg
+
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
