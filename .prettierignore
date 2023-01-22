@@ -1,0 +1,19 @@
+# folders
+/.angular
+/.vscode
+/build
+/dist
+/e2e
+/.node_modules
+# files
+.browserslistrc
+.gitignore
+angular.json
+build.sh
+karma.conf.js
+package-lock.json
+package.json
+README.md
+tsconfig.app.json
+tsconfig.json
+tsconfig.spec.json

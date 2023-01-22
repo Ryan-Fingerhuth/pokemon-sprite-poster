@@ -16,7 +16,7 @@ export interface IPokemonGenerationInfo {
 
 export interface IPokemonGameInfo {
   gameName: string;
-  numberOfPokemon: number; 
+  numberOfPokemon: number;
 }
 
 export interface ISpriteConfig {

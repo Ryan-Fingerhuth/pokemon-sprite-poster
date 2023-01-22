@@ -10,17 +10,9 @@ import { CommonModule } from '@angular/common';
 import { LocalForageService } from './localforage.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PosterComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CommonModule,
-    FormsModule,
-  ],
+  declarations: [AppComponent, PosterComponent],
+  imports: [BrowserModule, AppRoutingModule, CommonModule, FormsModule],
   providers: [PokemonConstants, PokemonSpriteInfo, LocalForageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -114,6 +114,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pokemon-sprite-poster"
+    }
+  },
+  "defaultProject": "pokemon-sprite-poster",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
