@@ -57,13 +57,16 @@ Wanted to re-create a poster style layout site that showcases all the awesome po
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` [![LICENSE][license-shield]][license-url] for more information.
+[![LICENSE][license-shield]][license-url]
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <!-- CONTACT -->
 ## Contact
 
 Ryan Fingerhuth - rfingerhuth@gmail.com
+
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 Project Link: [https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster](https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster)
