@@ -1,3 +1,4 @@
+<a name="readme-top"></a>
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -42,22 +43,18 @@
 Growing up I loved looking at pokemon posters such as the one above.
 Wanted to re-create a poster style layout site that showcases all the awesome pokemon sprites from Gen 1 through 5.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## Built With
 
 [![Angular][Angular.io]][Angular-url]
 [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 ## Contact
@@ -66,7 +63,6 @@ Ryan Fingerhuth - rfingerhuth@gmail.com - [linkedin-url]
 
 Project Link: [https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster](https://github.com/Ryan-Fingerhuth/pokemon-sprite-poster)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
