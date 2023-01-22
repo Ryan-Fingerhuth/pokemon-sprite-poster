@@ -30,6 +30,7 @@ export class PosterComponent implements OnInit {
   public generationOptions: string[];
   public versionOptions: string[];
   public dexOptions: string[];
+  public isOpen = false;
 
   constructor(
     public pokemonConstants: PokemonConstants,
@@ -37,37 +38,31 @@ export class PosterComponent implements OnInit {
     private localForageService: LocalForageService,
   ) {}
 
-      private stupidMethod(): string {
-    return 'yoyoyo';
+  private stupidMethod(): string {
+    return 'yo';
   }
 
-  ngOnInit(): void {
-    this.localForageService
-      .get<IPokemonConfig>('config')
-      .then((config) => {
-        if (config) {
-          this.currentGeneration = config.currentGeneration;
+  async ngOnInit() {
+    let config = await this.localForageService.get<IPokemonConfig>('config');
+    if (config) {
+      this.currentGeneration = config.currentGeneration;
 
-          this.selectedGeneration = config.selectedGeneration;
-          this.selectedVersion = config.selectedVersion;
-          this.selectedDex = config.selectedDex;
-          this.displayPosterOptions = config.displayPosterOptions;
-        } else {
-          this.displayPosterOptions = true;
-          this.currentGeneration = this.pokemonConstants.generations[1];
+      this.selectedGeneration = config.selectedGeneration;
+      this.selectedVersion = config.selectedVersion;
+      this.selectedDex = config.selectedDex;
+      this.displayPosterOptions = config.displayPosterOptions;
+    } else {
+      this.displayPosterOptions = true;
+      this.currentGeneration = this.pokemonConstants.generations[1];
 
-          this.selectedGeneration = this.currentGeneration.generation;
-          this.selectedVersion = this.currentGeneration.versions[2];
-          this.selectedDex = this.currentGeneration.dexOptions[0];
+      this.selectedGeneration = this.currentGeneration.generation;
+      this.selectedVersion = this.currentGeneration.versions[2];
+      this.selectedDex = this.currentGeneration.dexOptions[0];
 
-          this.setConfigValues();
-        }
+      this.setConfigValues();
+    }
 
-        this.setDropdownOptions();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.setDropdownOptions();
   }
 
   private setDropdownOptions(): void {
