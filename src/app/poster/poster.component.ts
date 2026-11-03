@@ -8,6 +8,7 @@ import {
   PokemonSpriteInfo,
 } from '../@models';
 import { LocalForageService } from '../localforage.service';
+import { animatedSpritePaths } from '../@models/animated-sprites';
 
 @Component({
   selector: 'app-poster',
@@ -30,7 +31,28 @@ export class PosterComponent implements OnInit {
   public generationOptions: string[];
   public versionOptions: string[];
   public dexOptions: string[];
-  public isOpen = false;
+  public pixelCrisp = true;
+  public darkMode = false;
+  public animateOnHover = true;
+  public storageMessage = '';
+  public failedSprites = new Set<string>();
+  public showLogoHint = false;
+  public hoveredSprite: string | null = null;
+  public focusedSprite: string | null = null;
+
+  public isAnimated(sprite: IPokemonSprite): boolean {
+    return animatedSpritePaths.has(sprite.pokemonSprite);
+  }
+
+  public spriteSource(sprite: IPokemonSprite): string {
+    const source = sprite.pokemonSprite;
+    return this.animateOnHover &&
+      this.isAnimated(sprite) &&
+      this.hoveredSprite !== source &&
+      this.focusedSprite !== source
+      ? source.replace('assets/', 'assets/sprite-stills/')
+      : source;
+  }
 
   constructor(
     public pokemonConstants: PokemonConstants,
@@ -38,31 +60,51 @@ export class PosterComponent implements OnInit {
     private localForageService: LocalForageService,
   ) {}
 
-  private stupidMethod(): string {
-    return 'yo';
-  }
-
   async ngOnInit() {
-    let config = await this.localForageService.get<IPokemonConfig>('config');
-    if (config) {
-      this.currentGeneration = config.currentGeneration;
-
-      this.selectedGeneration = config.selectedGeneration;
-      this.selectedVersion = config.selectedVersion;
-      this.selectedDex = config.selectedDex;
-      this.displayPosterOptions = config.displayPosterOptions;
-    } else {
-      this.displayPosterOptions = true;
-      this.currentGeneration = this.pokemonConstants.generations[1];
-
-      this.selectedGeneration = this.currentGeneration.generation;
-      this.selectedVersion = this.currentGeneration.versions[2];
-      this.selectedDex = this.currentGeneration.dexOptions[0];
-
-      this.setConfigValues();
+    let config: Partial<IPokemonConfig> = {};
+    try {
+      const saved = await this.localForageService.get<IPokemonConfig>('config');
+      if (saved && typeof saved === 'object') config = saved;
+    } catch {
+      this.storageMessage =
+        'Saved settings are unavailable. You can still customize and share this poster.';
     }
-
+    const params = new URLSearchParams(window.location.search);
+    const shared = ['generation', 'version', 'dex', 'crisp', 'hover'].some((key) =>
+      params.has(key),
+    );
+    const generation = shared ? params.get('generation') : config.selectedGeneration;
+    this.currentGeneration =
+      this.pokemonConstants.generations.find(
+        (gen) => gen.generation === generation,
+      ) || this.pokemonConstants.generations[1];
+    this.selectedGeneration = this.currentGeneration.generation;
+    const version = shared ? params.get('version') : config.selectedVersion;
+    const dex = shared ? params.get('dex') : config.selectedDex;
+    this.selectedVersion = this.currentGeneration.versions.includes(version)
+      ? version
+      : this.selectedGeneration === 'Gen 2'
+      ? 'Crystal'
+      : this.currentGeneration.versions[0];
+    this.selectedDex = this.currentGeneration.dexOptions.includes(dex)
+      ? dex
+      : this.currentGeneration.dexOptions[0];
+    this.displayPosterOptions =
+      typeof config.displayPosterOptions === 'boolean'
+        ? config.displayPosterOptions
+        : true;
+    this.pixelCrisp = shared
+      ? params.get('crisp') !== 'false'
+      : config.pixelCrisp !== false;
+    this.animateOnHover = shared
+      ? params.get('hover') !== 'false'
+      : config.animateOnHover !== false;
+    this.darkMode = params.has('dark')
+      ? params.get('dark') === 'true'
+      : config.darkMode === true;
     this.setDropdownOptions();
+    this.showLogoHint = config.logoClicked !== true;
+    this.updateShareUrl();
   }
 
   private setDropdownOptions(): void {
@@ -73,19 +115,61 @@ export class PosterComponent implements OnInit {
     this.getSprites();
   }
 
-  private setConfigValues(): void {
+  private async setConfigValues(): Promise<void> {
     const config: IPokemonConfig = {
       currentGeneration: this.currentGeneration,
       selectedGeneration: this.selectedGeneration,
       selectedVersion: this.selectedVersion,
       selectedDex: this.selectedDex,
       displayPosterOptions: this.displayPosterOptions,
+      pixelCrisp: this.pixelCrisp,
+      darkMode: this.darkMode,
+      animateOnHover: this.animateOnHover,
+      logoClicked: !this.showLogoHint,
     };
 
-    this.localForageService.set('config', config);
+    this.updateShareUrl();
+    try {
+      await this.localForageService.set('config', config);
+      this.storageMessage = '';
+    } catch {
+      this.storageMessage =
+        'Settings could not be saved on this device. Bookmark or copy the URL to keep this poster.';
+    }
+  }
+
+  private updateShareUrl(): void {
+    const url = new URL(window.location.href);
+    url.searchParams.set('generation', this.selectedGeneration);
+    url.searchParams.set('version', this.selectedVersion);
+    url.searchParams.set('dex', this.selectedDex);
+    url.searchParams.delete('density');
+    url.searchParams.set('crisp', String(this.pixelCrisp));
+    url.searchParams.set('hover', String(this.animateOnHover));
+    url.searchParams.set('dark', String(this.darkMode));
+    window.history.replaceState(window.history.state, '', url.toString());
+  }
+
+  public onAppearanceChange(): void {
+    this.setConfigValues();
+  }
+
+  public onLogoClick(): void {
+    this.showLogoHint = false;
+    this.showHidePosterOptions();
+  }
+
+  public trackSprite(index: number, sprite: IPokemonSprite): number {
+    return sprite.natDex;
+  }
+
+  public onSpriteError(sprite: IPokemonSprite): void {
+    this.failedSprites.add(sprite.pokemonSprite);
   }
 
   private getSprites(): void {
+    this.hoveredSprite = null;
+    this.focusedSprite = null;
     this.pokemonSprites = [];
 
     if (!this.selectedGeneration) {

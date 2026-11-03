@@ -237,5 +237,6 @@
     "Yanma",
     "Zapdos",
     "Zubat"
-  ]
+  ],
+  "angular.enable-strict-mode-prompt": false
 }

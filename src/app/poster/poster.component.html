@@ -1,22 +1,40 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-auto mt-3" (click)="showHidePosterOptions()">
-      <img class="img-fluid header-image" [src]="pokemonGameVersionHeaderImage" />
+<main class="poster container-fluid" [class.dark-mode]="darkMode">
+  <header class="poster-header">
+    <div class="logo-container">
+      <button
+        type="button"
+        class="logo-button"
+        (click)="onLogoClick()"
+        [disabled]="!selectedGeneration"
+        [attr.aria-expanded]="displayPosterOptions"
+        aria-controls="poster-options"
+        aria-label="Toggle poster customization">
+        <img
+          class="header-image"
+          [src]="pokemonGameVersionHeaderImage"
+          alt="Pok&eacute;mon Sprite Poster" />
+      </button>
+      <span
+        class="logo-hint"
+        [class.logo-hint-hidden]="!showLogoHint"
+        aria-hidden="true">
+        <span>&#8599;</span>
+        Click me!
+        <span>&#8598;</span>
+      </span>
     </div>
-  </div>
+  </header>
 
-  <div *ngIf="displayPosterOptions" class="row mt-2 justify-content-center">
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <label class="fw-bold">Click the Pokemon Logo to show/hide options.</label>
-      </div>
-    </div>
-    <div class="col-auto">
-      <label for="genSelector">Select Generation</label>
+  <section
+    id="poster-options"
+    class="poster-options"
+    [hidden]="!displayPosterOptions"
+    aria-label="Customize poster">
+    <div class="option-field">
+      <label for="genSelector">Generation</label>
       <select
         id="genSelector"
-        class="form-control"
-        width="100px"
+        class="form-select"
         [(ngModel)]="selectedGeneration"
         (change)="onGenerationChange()">
         <option *ngFor="let gen of generationOptions" [value]="gen">
@@ -24,13 +42,11 @@
         </option>
       </select>
     </div>
-    <div class="col-auto">
-      <label for="versionSelector">Select Version</label>
+    <div class="option-field">
+      <label for="versionSelector">Game version</label>
       <select
         id="versionSelector"
-        class="form-control"
-        [style.width.px]="200"
-        width="200px"
+        class="form-select"
         [(ngModel)]="selectedVersion"
         (change)="onVersionChange()">
         <option *ngFor="let version of versionOptions" [value]="version">
@@ -38,33 +54,107 @@
         </option>
       </select>
     </div>
-    <div class="col-auto">
-      <label for="dexSelector">Select Dex Order</label>
+    <div class="option-field">
+      <label for="dexSelector">Pok&eacute;dex order</label>
       <select
         id="dexSelector"
-        class="form-control"
-        width="100px"
+        class="form-select"
         [(ngModel)]="selectedDex"
         (change)="onDexChange()">
-        <option *ngFor="let dex of dexOptions" [value]="dex">
-          {{ dex }}
-        </option>
+        <option *ngFor="let dex of dexOptions" [value]="dex">{{ dex }}</option>
       </select>
     </div>
-  </div>
-  <div class="row mt-3 justify-content-md-center sprite-grid-side-margins">
+    <div class="form-check pixel-option">
+      <input
+        id="pixelCrisp"
+        type="checkbox"
+        class="form-check-input"
+        [(ngModel)]="pixelCrisp"
+        (change)="onAppearanceChange()" />
+      <label class="form-check-label" for="pixelCrisp">Crisp pixels</label>
+    </div>
+    <div class="form-check pixel-option">
+      <input
+        id="animateOnHover"
+        type="checkbox"
+        class="form-check-input"
+        [(ngModel)]="animateOnHover"
+        (change)="onAppearanceChange()" />
+      <label class="form-check-label" for="animateOnHover">
+        Animate on hover only
+      </label>
+    </div>
+    <div class="form-check pixel-option">
+      <input
+        id="darkMode"
+        type="checkbox"
+        class="form-check-input"
+        [(ngModel)]="darkMode"
+        (change)="onAppearanceChange()" />
+      <label class="form-check-label" for="darkMode">Dark mode</label>
+    </div>
+  </section>
+  <p *ngIf="storageMessage" class="storage-message" role="status">
+    {{ storageMessage }}
+  </p>
+
+  <div
+    class="row mt-3 justify-content-md-center sprite-grid"
+    [class.pixel-crisp]="pixelCrisp">
     <div
-      class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4"
-      *ngFor="let sprite of pokemonSprites">
-      <div class="vstack gap-0 m-2">
-        <img
-          class="img-fluid"
-          [src]="sprite.pokemonSprite"
-          [alt]="sprite.pokemonName" />
-        <label class="img-fluid" class="text-center">
-          {{ sprite.pokemonName }}
-        </label>
-      </div>
+      class="sprite-tile col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4"
+      *ngFor="let sprite of pokemonSprites; let i = index; trackBy: trackSprite">
+      <figure
+        class="vstack gap-0 m-2"
+        [attr.tabindex]="animateOnHover && isAnimated(sprite) ? 0 : null"
+        [attr.aria-label]="
+          animateOnHover && isAnimated(sprite)
+            ? sprite.pokemonName + ': hover or focus to animate'
+            : null
+        "
+        (mouseenter)="hoveredSprite = sprite.pokemonSprite"
+        (mouseleave)="hoveredSprite = null"
+        (focus)="focusedSprite = sprite.pokemonSprite"
+        (blur)="focusedSprite = null">
+        <div class="sprite-frame">
+          <img
+            *ngIf="!failedSprites.has(sprite.pokemonSprite); else unavailable"
+            class="sprite-image img-fluid"
+            [src]="spriteSource(sprite)"
+            [alt]="sprite.pokemonName"
+            width="96"
+            height="96"
+            [attr.loading]="i < 36 ? 'eager' : 'lazy'"
+            decoding="async"
+            (error)="onSpriteError(sprite)" />
+          <ng-template #unavailable>
+            <span
+              class="sprite-fallback"
+              role="img"
+              [attr.aria-label]="sprite.pokemonName + ' sprite unavailable'">
+              Sprite
+              <br />
+              unavailable
+            </span>
+          </ng-template>
+        </div>
+        <figcaption>{{ sprite.pokemonName }}</figcaption>
+      </figure>
     </div>
   </div>
-</div>
+  <footer class="poster-footer">
+    <p>
+      This is an unofficial fan project. We do not own any rights to Pok&eacute;mon
+      or its characters, names, logos, artwork, or sprites. All rights belong to
+      their respective owners. This site is not affiliated with or endorsed by the
+      Pok&eacute;mon rights holders.
+    </p>
+    <p>
+      All Pok&eacute;mon sprites are sourced from
+      <a href="https://bulbapedia.bulbagarden.net/wiki" target="_blank">
+        Bulbapedia / Bulbagarden
+      </a>
+      .
+    </p>
+  </footer>
+</main>
