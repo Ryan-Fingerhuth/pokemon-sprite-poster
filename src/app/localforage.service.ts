@@ -12,7 +12,7 @@ export class LocalForageService {
     return localForage.getItem(key);
   }
 
-  public set(key: string, value: any): void {
-    localForage.setItem(key, value);
+  public async set(key: string, value: any): Promise<void> {
+    await localForage.setItem(key, value);
   }
 }

@@ -27,6 +27,10 @@ export interface ISpriteConfig {
 }
 
 export interface IPokemonConfig {
+  logoClicked?: boolean;
+  pixelCrisp?: boolean;
+  darkMode?: boolean;
+  animateOnHover?: boolean;
   currentGeneration: IPokemonGenerationInfo;
   selectedGeneration: string;
   selectedVersion: string;
